@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tam Ekran Resim ve Geri Sayım</title>
+    <style>
+        body, html {
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Resmi içeriğin arkasına yerleştir */
+        }
+
+        #countdown {
+            font-size: 48px;
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <img src="{{ url_for('static', filename='media_src/final.jpg') }}" alt="Tam Ekran Resim">
+    <div id="countdown">30</div>
+
+    <script>
+        // Geri sayım fonksiyonu
+        function startCountdown(seconds) {
+            var countdownElement = document.getElementById('countdown');
+            var countdown = seconds;
+
+            function updateCountdown() {
+                countdownElement.textContent = countdown;
+
+                if (countdown === 0) {
+                    // Geri sayım bitti, index.html'e yönlendir
+                    window.location.href = '/';
+                } else {
+                    countdown--;
+                    setTimeout(updateCountdown, 1000);
+                }
+            }
+
+            updateCountdown();
+        }
+
+        // Sayfa yüklendiğinde geri sayımı başlat
+        window.addEventListener('load', function() {
+            startCountdown(30); // 30 saniye
+        });
+    </script>
+</body>
+</html>

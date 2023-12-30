@@ -1,0 +1,74 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hand Detection</title>
+   <style>
+        body, html {
+            height: 100%;
+            overflow: hidden; /* Sayfa genelinde scroll'u devre dışı bırakır */
+            margin: 0;
+        }
+
+        #video-container {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* 100% of the viewport height */
+        }
+
+        #video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Video boyutunu korur ve tam ekran sığacak şekilde ölçekler */
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+       // JavaScript ile video boyutunu her zaman ekran boyutuna uyacak şekilde ayarlayın
+        window.addEventListener('resize', function() {
+            var videoContainer = document.getElementById('video-container');
+            var video = document.getElementById('video');
+
+            videoContainer.style.height = window.innerHeight + 'px';
+        });
+
+        // Sayfa yüklendiğinde video boyutunu ayarla
+        window.addEventListener('load', function() {
+            var videoContainer = document.getElementById('video-container');
+            var video = document.getElementById('video');
+
+            videoContainer.style.height = window.innerHeight + 'px';
+        });
+
+    setInterval(function() {
+        $.ajax({
+            url: '/check_hand_status',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                console.log('AJAX success. Hand status:', data.hand_status);
+                if (data.hand_status === 1) {
+                    console.log('Hand detected. Redirecting to /video');
+                    // El algılandığında /video endpoint'ine yönlendir
+                    window.location.href = '/video';
+                }
+            },
+            error: function(error) {
+                console.log('AJAX error:', error);
+            }
+        });
+    }, 1000);
+</script>
+</head>
+<body>
+        <div id="video-container">
+        <video id="video"  autoplay loop muted>
+            <source src="{{ url_for('static', filename='media_src/index.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+</body>
+</html>
