@@ -12,8 +12,8 @@ class DetectUser:
         self.circle_center = (320, 240)
         self.circle_radius = 100
         self.cap = cv2.VideoCapture(0)
-        self.inside_circle = Value('i', 0)  # Paylaşılan integer değeri
-       #self.hand_status = Value('i', 0)   # Paylaşılan integer değeri
+        self.inside_circle = Value('i', 0)
+       #self.hand_status = Value('i', 0)
         self.lock = threading.Lock()
         self.is_running = threading.Event()
     def is_point_inside_circle(self, point):

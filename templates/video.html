@@ -34,7 +34,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <script>
-        // JavaScript ile video boyutunu her zaman ekran boyutuna uyacak şekilde ayarlayın
+        // JavaScript ile video boyutunu ekran boyutuna uyacak şekilde ayar
         window.addEventListener('resize', function() {
             var videoContainer = document.getElementById('video-container');
             var video = document.getElementById('video');
@@ -42,14 +42,14 @@
             videoContainer.style.height = window.innerHeight + 'px';
         });
 
-        // Sayfa yüklendiğinde video boyutunu ayarla
+        // Sayfa yüklendiğinde video boyutu ayar
         window.addEventListener('load', function() {
             var videoContainer = document.getElementById('video-container');
             var video = document.getElementById('video');
 
             videoContainer.style.height = window.innerHeight + 'px';
 
-            // Video biterse success.html'e yönlendir
+            // Video biterse success.html'e yönlen
             video.addEventListener('ended', function() {
                 console.log('Video ended. Redirecting to success.html');
                 window.location.href = '/success';
